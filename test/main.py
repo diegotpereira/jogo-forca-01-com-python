@@ -21,6 +21,8 @@ tamanho_quadrado = 20
 
 velocidade_jogo = 15
 
+relogio = pygame.time.Clock()
+
 def desenhar_cobra(tamanho, pixels):
 
             for pixel in pixels:
@@ -47,6 +49,38 @@ def desenhar_cobra(tamanho, pixels):
         pygame.draw.rect(tela, branca, [pixel[0], pixel[1], tamanho, tamanho])
 
 
+
+def selecionar_velocidade(tecla):
+     
+     print(tecla)
+     
+     if tecla == pygame.K_DOWN: 
+          
+          velocidade_x = 0
+
+          velocidade_y = tamanho_quadrado
+
+     elif tecla == pygame.K_UP:
+
+          velocidade_x = 0
+
+          velocidade_y = -tamanho_quadrado
+
+     elif tecla == pygame.K_RIGHT:
+          
+          velocidade_x = tamanho_quadrado
+
+          velocidade_y = 0
+
+     elif tecla == pygame.K_LEFT:
+          
+          velocidade_x = -tamanho_quadrado
+
+          velocidade_y = 0
+
+     return velocidade_x, velocidade_y
+
+
 def rodar_jogo(): 
     
     fim_jogo = False
@@ -55,19 +89,17 @@ def rodar_jogo():
 
     y = altura / 2
 
-    velocidade_x = 0
-
-    velocidade_y = 0
-
     tamanho_cobra = 1
 
     pixels = []
 
     comida_x, comida_y = gerar_comida()
 
+    velocidade_x = 0
+
+    velocidade_y = 0
+
     while not fim_jogo:
-           
-        #    pass
 
         tela.fill(preta)
 
@@ -77,8 +109,20 @@ def rodar_jogo():
 
                 fim_jogo = True
 
+            elif evento.type == pygame.KEYDOWN:
+                 
+                velocidade_x, velocidade_y = selecionar_velocidade(evento.key)
+
         
         desenhar_comida(tamanho_quadrado, comida_x, comida_y)
+
+        if x < 0 or x >= largura or y < 0 or y >= altura:
+             
+             fim_jogo = True
+
+        x += velocidade_x
+
+        y += velocidade_y
 
         pixels.append([x, y])
 
@@ -97,6 +141,9 @@ def rodar_jogo():
 
 
         pygame.display.update()
+
+
+
 
 
 rodar_jogo()
