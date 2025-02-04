@@ -41,15 +41,6 @@ def desenhar_comida(tamanho, comida_x, comida_y):
 
     pygame.draw.rect(tela, verde, [comida_x, comida_y, tamanho, tamanho])
 
-
-def desenhar_cobra(tamanho, pixels):
-
-    for pixel in pixels:
-
-        pygame.draw.rect(tela, branca, [pixel[0], pixel[1], tamanho, tamanho])
-
-
-
 def selecionar_velocidade(tecla):
      
      print(tecla)
@@ -124,6 +115,8 @@ def rodar_jogo():
 
         y += velocidade_y
 
+        # desenhar cobra
+
         pixels.append([x, y])
 
         if len(pixels) > tamanho_cobra:
@@ -141,6 +134,9 @@ def rodar_jogo():
 
 
         pygame.display.update()
+
+
+        relogio.tick(velocidade_jogo)
 
 
 
