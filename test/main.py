@@ -31,9 +31,9 @@ def desenhar_cobra(tamanho, pixels):
 
 def gerar_comida():
 
-    comida_x = round(random.randrange(0, largura - tamanho_quadrado) / 20.0) * 20.0
+    comida_x = round(random.randrange(0, largura - tamanho_quadrado) / float(tamanho_quadrado)) * float (tamanho_quadrado)
 
-    comida_y = round(random.randrange(0, altura - tamanho_quadrado) / 20.0) * 20.0
+    comida_y = round(random.randrange(0, altura - tamanho_quadrado) / float(tamanho_quadrado)) * float(tamanho_quadrado) 
 
     return comida_x, comida_y
 
@@ -134,6 +134,14 @@ def rodar_jogo():
 
 
         pygame.display.update()
+
+        #criar nova comida
+
+        if x == comida_x and y == comida_y:
+
+            tamanho_cobra += 1
+
+            comida_x, comida_y = gerar_comida()
 
 
         relogio.tick(velocidade_jogo)
